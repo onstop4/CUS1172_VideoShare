@@ -1,0 +1,16 @@
+extends authenticated_base 
+
+block primary 
+    .btn-group(role="group").mb-2
+        a.btn.btn-outline-primary(href="/video/dashboard/all" class=(showing==="all")?"disabled":"") All videos
+        a.btn.btn-outline-primary(href="/video/dashboard/mine" class=(showing==="mine")?"disabled":"") My videos
+
+    if videos.length
+        ul.d-flex.flex-wrap
+            each video in videos 
+                li.card.m-2
+                    .card-body
+                        h4= video.title
+                        h5.fst-italic= video.user
+                        p= video.description
+                        iframe.card-img-button(src=video.url, title="YouTube video player", frameborder="0", allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture", allowfullscreen)

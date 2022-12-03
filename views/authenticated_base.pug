@@ -1,0 +1,13 @@
+extends base
+
+block content 
+    nav.navbar.navbar-expand-lg.navbar-dark.bg-dark 
+        .container-fluid 
+            .collapse.navbar-collapse 
+                ul.navbar-nav 
+                    each url, text in {"Dashboard": "/video/dashboard/all", "Add Video": "/video/new_video", "Logout": "/auth/logout"}
+                        li.navbar-item
+                            a.nav-link(href=url)= text 
+    
+    .container-lg.p-3.center-contents
+        block primary

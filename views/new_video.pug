@@ -1,0 +1,29 @@
+extends authenticated_base 
+
+block primary
+    if success
+        .alert.alert-success 
+            p.mb-0 Video added successfully!
+
+    if error
+        .alert.alert-danger
+            p.mb-0= error
+            if errorList
+                ul
+                    each val in errorList 
+                        li=val 
+
+    form(action="", method="post") 
+        .mb-3 
+            label.form-label(for="title-input") Title 
+            input#title-input.form-control(type="text", name="title")
+
+        .mb-3 
+            label.form-label(for="description-input") Description 
+            input#description-input.form-control(type="text", name="description")
+        
+        .mb-3 
+            label.form-label(for="videoid-input") Video ID
+            input#videoid-input.form-control(type="text", name="videoId") 
+
+        button.btn.btn-primary(type="submit") Submit

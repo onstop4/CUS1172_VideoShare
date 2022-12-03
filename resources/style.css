@@ -1,0 +1,12 @@
+a.disabled {
+    pointer-events: none;
+    cursor: default;
+}
+
+.center-contents {
+    text-align: center;
+}
+
+.center-contents>* {
+    text-align: initial;
+}
