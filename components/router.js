@@ -4,6 +4,7 @@ const router = express.Router()
 function authRequired(func) {
     return (req, res) => {
         if (req.session.isAuthenticated) {
+            res.locals.userId = req.session.userId
             func(req, res)
         } else {
             res.redirect("/auth/login?needLogin=1")
@@ -41,7 +42,7 @@ router.get("/auth/login", ignoreIfAuthenticated((req, res) => {
 router.post("/auth/login", ignoreIfAuthenticated((req, res) => {
     const potentialUser = db.model.users.find(user => user.userId === req.body.user)
     if (potentialUser !== undefined && potentialUser.password === req.body.password) {
-        req.session.userId = req.body.user
+        req.session.userId = potentialUser.userId
         req.session.isAuthenticated = true
         res.redirect("/video/dashboard/all")
     } else {
