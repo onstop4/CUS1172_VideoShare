@@ -1,6 +1,9 @@
 extends base
 
 block primary 
+    h2 Register
+    p Fill in the form below to create a new account. #[a(href="/auth/login") Click here] to log in with an existing account.
+
     if error
         .alert.alert-danger
             p.mb-0= error
