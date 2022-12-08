@@ -17,4 +17,3 @@ var loadDatabase = (db_connection, schema = {}) => {
 }
 
 module.exports = loadDatabase;
-

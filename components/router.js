@@ -71,13 +71,13 @@ router.post("/auth/register", ignoreIfAuthenticated((req, res) => {
 
     if (!req.body.email) {
         missing.push("email address")
-    } else if (db.models.users.find(user => user.email === req.body.email)) {
+    } else if (db.model.users.find(user => user.email === req.body.email)) {
         existing.push("email address")
     }
 
     if (!req.body.userId) {
         missing.push("username")
-    } else if (db.models.users.find(user => user.userId === req.body.userId)) {
+    } else if (db.model.users.find(user => user.userId === req.body.userId)) {
         existing.push("username")
     }
 

@@ -3,9 +3,9 @@ extends base
 block primary 
     if error
         .alert.alert-danger
-            p= error
+            p.mb-0= error
             if errorList
-                ul
+                ul.mb-0
                     each val in errorList 
                         li=val 
 
