@@ -6,7 +6,7 @@ block primary
         a.btn.btn-outline-primary(href="/video/dashboard/mine" class=(showing==="mine")?"disabled":"") My videos
 
     if videos.length
-        ul.d-flex.flex-wrap
+        ul.d-flex.flex-wrap.ps-0.justify-content-center
             each video in videos 
                 li.card.m-2
                     .card-body
