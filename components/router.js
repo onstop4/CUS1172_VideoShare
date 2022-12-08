@@ -40,7 +40,7 @@ router.get("/auth/login", ignoreIfAuthenticated((req, res) => {
 }))
 
 router.post("/auth/login", ignoreIfAuthenticated((req, res) => {
-    const potentialUser = db.model.users.find(user => user.userId === req.body.user)
+    const potentialUser = db.model.users.find(user => user.userId === req.body.userId)
     if (potentialUser !== undefined && potentialUser.password === req.body.password) {
         req.session.userId = potentialUser.userId
         req.session.isAuthenticated = true
@@ -75,9 +75,9 @@ router.post("/auth/register", ignoreIfAuthenticated((req, res) => {
         existing.push("email address")
     }
 
-    if (!req.body.user) {
+    if (!req.body.userId) {
         missing.push("username")
-    } else if (db.models.users.find(user => user.userId === req.body.user)) {
+    } else if (db.models.users.find(user => user.userId === req.body.userId)) {
         existing.push("username")
     }
 
@@ -90,7 +90,7 @@ router.post("/auth/register", ignoreIfAuthenticated((req, res) => {
     } else if (existing.length) {
         res.render("register", { error: "Accounts with the following values already exist:", errorList: existing })
     } else {
-        db.model.users.push({ email: req.body.email, userId: req.body.user, password: req.body.password })
+        db.model.users.push({ email: req.body.email, userId: req.body.userId, password: req.body.password })
         db.update()
         res.render("account_created")
     }
@@ -103,7 +103,7 @@ router.get("/video/dashboard/:videofilter", authRequired((req, res) => {
             res.render("dashboard", { showing: "all", videos: db.model.videos })
             break
         case "mine":
-            res.render("dashboard", { showing: "mine", videos: db.model.videos.filter(video => video.user === currentUser) })
+            res.render("dashboard", { showing: "mine", videos: db.model.videos.filter(video => video.userId === currentUser) })
             break
         default:
             res.redirect("/video/dashboard/all")
@@ -131,7 +131,7 @@ router.post("/video/new_video", authRequired((req, res) => {
     } else if (!isValidVideoId(req.body.videoId)) {
         res.render("new_video", { error: "Invalid video ID." })
     } else {
-        db.model.videos.push({ user: req.session.userId, title: req.body.title, description: req.body.description, url: "https://www.youtube-nocookie.com/embed/" + req.body.videoId })
+        db.model.videos.push({ userId: req.session.userId, title: req.body.title, description: req.body.description, videoId: req.body.videoId })
         db.update()
         res.render("new_video", { success: true })
     }

@@ -10,7 +10,8 @@ block primary
             each video in videos 
                 li.card.m-2
                     .card-body
+                        - var url = "https://www.youtube-nocookie.com/embed/" + video.videoId
                         h4= video.title
-                        h5.fst-italic= video.user
+                        h5.fst-italic= video.userId
                         p= video.description
-                        iframe.card-img-button(src=video.url, title="YouTube video player", frameborder="0", allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture", allowfullscreen)
+                        iframe.card-img-button(src=url, title="YouTube video player", frameborder="0", allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture", allowfullscreen)
